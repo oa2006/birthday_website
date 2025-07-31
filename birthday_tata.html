@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday 💖</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao&family=Itim&family=Phetsarath+OT&family=Kanit&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0; padding: 20px;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffe4ec, #fad0e9, #fbb7d5);
+      font-family: 'Itim', cursive, 'Noto Sans Lao', sans-serif;
+      color: #880e4f;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #loginBox {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #loginBox .login-content {
+      background: white;
+      padding: 40px 50px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255, 105, 180, 0.6);
+      width: 320px;
+      text-align: center;
+    }
+    #loginBox h2 {
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+      text-shadow: 0 0 8px #ad1457;
+    }
+    #loginBox input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0 20px;
+      border-radius: 10px;
+      border: 2px solid #f48fb1;
+      font-size: 1.1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    #loginBox input[type="password"]:focus {
+      border-color: #d81b60;
+    }
+    #loginBox button {
+      background-color: #d81b60;
+      border: none;
+      color: white;
+      padding: 12px 0;
+      width: 100%;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 0 30px #f48fb1;
+      transition: background-color 0.3s ease;
+    }
+    #loginBox button:hover {
+      background-color: #ad1457;
+    }
+    #errorMsg {
+      color: #d32f2f;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    h1 {
+      font-size: 3.8rem;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeIn 2.5s ease-out forwards, glow 2s infinite alternate;
+      text-shadow: 0 0 10px #f06292, 0 0 20px #ad1457;
+    }
+    @keyframes fadeIn {
+      0% {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .photos {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 25px;
+      max-width: 700px;
+      margin: 40px auto 30px;
+    }
+
+    .main-photo {
+      width: 45%;
+      border-radius: 30px;
+      box-shadow: 0 0 35px rgba(255, 105, 180, 0.8);
+      transition: transform 0.3s ease;
+    }
+    .main-photo:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 50px rgba(255, 105, 180, 1);
+    }
+
+    .side-photo {
+      width: 20%;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #ad1457;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .side-photo:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 40px #f48fb1;
+    }
+
+    .left1 {
+      transform: rotate(5deg);
+    }
+    .right1 {
+      transform: rotate(-5deg);
+    }
+
+    button#playBtn {
+      background: #ec407a;
+      color: white;
+      font-size: 1.4rem;
+      border: none;
+      padding: 14px 45px;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 0 30px #f8bbd0;
+      margin: 25px auto 40px;
+      display: block;
+      transition: 0.3s;
+    }
+    button#playBtn:hover {
+      background: #d81b60;
+      box-shadow: 0 0 40px #f48fb1;
+    }
+
+    #wishes {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 2em;
+      margin: 20px auto 60px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #f06292;
+      max-width: 650px;
+      font-size: 1.2rem;
+      line-height: 1.7;
+      font-family: 'Phetsarath OT', sans-serif;
+      color: #880e4f;
+    }
+
+    #envelope, #message {
+      cursor: pointer;
+      transition: transform 0.5s;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    #envelope {
+      width: 260px;
+    }
+
+    #message {
+      display: none;
+      margin-top: 30px;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      width: 260px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      animation: popUp 0.8s ease forwards;
+      position: relative;
+      text-align: center;
+      font-family: 'Phetsarath OT', sans-serif;
+      color: #880e4f;
+    }
+
+    @keyframes popUp {
+      0% {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .heart {
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      position: fixed;
+      bottom: -30px;
+      left: 0;
+      animation: floatUp 6s linear forwards;
+      transform: rotate(45deg);
+      z-index: 0;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: -10px;
+    }
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) scale(1.5) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- หน้าใส่รหัสผ่าน -->
+<div id="loginBox">
+  <div class="login-content">
+    <h2>Please enter the password.</h2>
+    <div id="errorMsg">รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่</div>
+    <input type="password" id="passwordInput" placeholder="รหัสผ่าน..." />
+    <button id="submitBtn">เข้าสู่ระบบ</button>
+  </div>
+</div>
+
+<!-- เนื้อหาเว็บหลัก -->
+<div id="mainContent" style="display:none;">
+  <h1>Happy Birthday <br> My best friend 💗</h1>
+
+  <div class="photos">
+    <img src="photo1.jpg" alt="รูปซ้าย" class="side-photo left1">
+    <img src="photo_main.jpg" alt="รูปหลัก" class="main-photo">
+    <img src="photo2.jpg" alt="รูปขวา" class="side-photo right1">
+  </div>
+
+  <button id="playBtn">🎵 click here to play the song</button>
+
+  <h2>🎉 click the envelope 🎉</h2>
+
+  <!-- ซองจดหมาย -->
+  <img id="envelope" src="mmmm-removebg-preview (1).png" alt="ซองจดหมาย">
+
+  <!-- กระดาษคำอวยพร -->
+  <div id="message">
+    <h2>💖 Happy Birthday  💖</h2>
+    <p>
+      Happy Birthday 🎉 ເດີມືງເປັນຜູ້ໃຫຍ່ຂື້ນອີກປີແລ້ວໆ<br>
+      ວັນເກີດມືງປີນີ້ ຂໍໃຫ້ມືງມີແຕ່ຄວາມສຸກ 💖 ຄວາມຈະເລີນ ✨ ປາດຖະໜາສິ່ງໃດ ຂໍໃຫ້ໄດ້ສິ່ງນັ້ນ<br>
+      ຂໍໃຫ້ປະສົບຄວາມສຳເລັດໃນທຸກໆເລື່ອງ 📚💼 ບໍ່ວ່າສິເປັນຄວາມຮັກ ❤️ ການຮຽນ ຫຼືການງານ<br>
+      ໃຫ້ໂລກນີ້ໃຈດີກັບມືງເດີ 🌍 ຂໍໃຫ້ສົມຫວັງທຸກຢ່າງທີ່ຕັ້ງໃຈ 💫<br>
+      ຂໍໃຫ້ມືງມີແຕ່ຮອຍຍີ້ມທີ່ສົດໃສ 😊 ຢ່າໃຫ້ຫຍັງມາພາກຮອຍຍີ້ມນັ້ນໄປຈາກມືງ<br>
+      ແລະຢາກໃຫ້ມືງຮູ້ວ່າ ຍັງມີກູຢູ່ທາງຫຼັງມືງຕະຫຼອດ 🤝<br>
+      ຖ້າມື້ໃດໃຜເຮັດໃຫ້ເສຍໃຈ ຂໍໃຫ້ມືງຫັນຫຼັງມາ ມືງກະສິເຫັນກູຢູ່ນັ່ນ<br>
+      ກູສິຢູ່ນຳມືງ ບໍ່ວ່າມືງສິທຸກ ຫຼືສຸກ 💪<br>
+      ກູສິເປັນກຳລັງໃຈໃຫ້ສະເໝີ 💗<br>
+      ທ້າຍສຸດນີ້ ຢາກໃຫ້ມືງຮູ້ວ່າ...<br>
+      ກູໂຄດຮັກມືງເລີຍຍຍຍຍ LOVE YOU SO MUCH❤️😘
+    </p>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="birthday_song.mp3" type="audio/mpeg">
+  เบราว์เซอร์ไม่รองรับเพลง
+</audio>
+
+<script>
+  // หน้า Login
+  const correctPassword = "1234";  // เปลี่ยนรหัสตามที่มึงต้องการ
+  const loginBox = document.getElementById('loginBox');
+  const mainContent = document.getElementById('mainContent');
+  const input = document.getElementById('passwordInput');
+  const btn = document.getElementById('submitBtn');
+  const errorMsg = document.getElementById('errorMsg');
+
+  btn.addEventListener('click', () => {
+    if (input.value === correctPassword) {
+      loginBox.style.display = 'none';
+      mainContent.style.display = 'block';
+    } else {
+      errorMsg.style.display = 'block';
+      input.value = '';
+      input.focus();
+    }
+  });
+
+  input.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+      btn.click();
+    }
+  });
+
+  // เพลงเปิด-ปิด
+  const music = document.getElementById('bgMusic');
+  const playBtn = document.getElementById('playBtn');
+  playBtn.addEventListener('click', () => {
+    music.play();
+  });
+
+  // ซองจดหมายเปิด-ปิด
+  const envelope = document.getElementById("envelope");
+  const message = document.getElementById("message");
+
+  envelope.addEventListener("click", () => {
+    envelope.style.display = "none";
+    message.style.display = "block";
+  });
+
+  message.addEventListener("click", () => {
+    message.style.display = "none";
+    envelope.style.display = "block";
+  });
+
+  // หัวใจลอย
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 80%)`;
+    heart.style.animationDuration = Math.random() * 2 + 4 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }
+
+  setInterval(createHeart, 200);
+</script>
+
+</body>
+</html>
